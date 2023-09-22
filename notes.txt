@@ -1,0 +1,12 @@
+- Handler
+- Encoded
+- decoder
+- client
+- server
+
+
+--> 
+https://medium.com/@leogaudin/minitalk-a-simple-client-server-communication-system-57ccc2ae5178
+
+--> 
+https://codereview.stackexchange.com/questions/273109/basic-client-server-model-using-unix-signals
