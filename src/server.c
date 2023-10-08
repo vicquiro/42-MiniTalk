@@ -18,7 +18,7 @@ char	*str_join_char(char const *s1, char c)
 	i = 0;
 	if (!s1)
 		return (0);
-    str_out = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+    str_out = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 2));
 	if (!str_out)
 		return (0);
 	while (s1[i] != '\0')
@@ -26,7 +26,6 @@ char	*str_join_char(char const *s1, char c)
 		str_out[i] = s1[i];
 		i++;
 	}
-	free((char *)s1);
 	str_out[i] = c; 
 	str_out[i+1] = '\0';
 	return (str_out);
