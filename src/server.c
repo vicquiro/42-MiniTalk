@@ -1,48 +1,30 @@
 #include "../includes/minitalk.h"
 
 #define END_TRANSMISSION '\0'
-// void convertToBinary(unsigned a)
-// {
-// 	if (a > 1)
-// 		convertToBinary(a / 2);
-// 	printf("%d", a % 2);
-// }
+
 /**
  * SINGAL_HANDLER funtion:
  *
  * */
 void signal_handler(int signal)
 {
-	static unsigned char current_char;
+	static char current_char;
 	static int bit_index;
-
-	// convertToBinary(current_char);
-	// printf("\n");
-	// printf("OR\n");
-	// convertToBinary(signal == SIGUSR1);
-	// printf("\n");
+	//printf("-\n");
 	current_char = current_char | (signal == SIGUSR1);
-	// printf("__________________\n");
-	// convertToBinary(current_char);
-	// printf("\n");
-	
 	bit_index++;
 	if (bit_index == 8)
 	{
+		//printf("--%c\n", current_char);
 		if (current_char == END_TRANSMISSION)
-			printf("\n"); // TODO: Change this to ft_printf
+			write(1, "\n", 1); // TODO: Change this to ft_printf
 		else
-			printf("%c", current_char); // TODO: Change this to ft_printf
+			write(1, &current_char, 1); // TODO: Change this to ft_printf
 		bit_index = 0;
 		current_char = 0;
 	}
 	else
-	{
 		current_char <<= 1;
-		// printf("-");
-		// convertToBinary(current_char);
-		// printf("\n");
-	}
 
 }
 
