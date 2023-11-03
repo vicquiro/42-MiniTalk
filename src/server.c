@@ -1,16 +1,8 @@
 #include "../includes/minitalk.h"
 
-
-// void convertToBinary(unsigned a)
-// {
-// 	if (a > 1)
-// 		convertToBinary(a / 2);
-// 	printf("%d", a % 2);
-// }
-
 char	*g_buffer;
 
-char	*str_join_char(char const *s1, char c)
+char	*str_join_char(char  *s1, char c)
 {
 	char	*str_out;
 	size_t	i;
@@ -28,7 +20,31 @@ char	*str_join_char(char const *s1, char c)
 	}
 	str_out[i] = c; 
 	str_out[i+1] = '\0';
+	//free(s1);
 	return (str_out);
+}
+
+
+void selectFucntion(int signal)
+{
+	static int flag;
+
+	flag = 0;
+	if (flag == 32)
+	{
+		//malloc
+		flag++;
+	}
+	if (flag < 32)
+	{
+		//call function to send length
+		flag++;
+	}
+	else
+	{
+		signal_handler(signal);
+		
+	}
 }
 
 /**
@@ -37,43 +53,27 @@ char	*str_join_char(char const *s1, char c)
  * */
 void signal_handler(int signal)
 {
-	static unsigned char current_char;
-	static int bit_index;
+	static char	current_char;
+	static int	bit_index;
 
-	// convertToBinary(current_char);
-	// printf("\n");
-	// printf("OR\n");
-	// convertToBinary(signal == SIGUSR1);
-	// printf("\n");
 	current_char = current_char | (signal == SIGUSR1);
-	// printf("__________________\n");
-	// convertToBinary(current_char);
-	// printf("\n");
-
 	bit_index++;
 	if (bit_index == 8)
 	{
 		if (current_char == '\0')
 		{
+			//write(1, g_buffer, ft_strlen(g_buffer));
 			ft_putstr_fd(g_buffer, 1);
 			ft_putchar_fd('\n', 1);
 			free(g_buffer); 
 		}
 		else
-		{
-			//printf("%c", current_char);
 			g_buffer = str_join_char(g_buffer, current_char);
-		}
 		bit_index = 0;
 		current_char = 0;
 	}
 	else
-	{
 		current_char <<= 1;
-		// printf("-");
-		// convertToBinary(current_char);
-		// printf("\n");
-	}
 }
 
 /**
@@ -82,14 +82,28 @@ void signal_handler(int signal)
  *  Infinite Loop waiting for signals
  *     -
  */
-int main(void)
+int main(int argc, char **argv)
 {
 	pid_t pid;
+	
 
+	if (argc != 1)
+    {
+        ft_putstr_fd("Error: ./server \n", 1);
+        return (0);
+    }
+	(void) argv;
 	pid = getpid();
-	printf("Server PID: %d\n", pid); // Change this to ft_printf
+	ft_putstr_fd("Server PID: ", 1); // Change this to ft_printf
+	ft_putnbr_fd(pid, 1);
+	ft_putchar_fd('\n', 1);
 	g_buffer = calloc(1, sizeof(char));
 	//Controlar esto
+	// signal(SIGUSR1, signal_handler1);
+	// signal(SIGUSR2, signal_handler1);
+	// while (1)
+	// 	pause();
+
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)

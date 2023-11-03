@@ -30,11 +30,11 @@ void send_to_server(int pid_server, unsigned char element)
         else
         {
             printf("Bit: %d\n", 0);
-            kill(pid_server, SIGUSR2); // Send 0
+            kill(pid_server, 1); // Send 0
         }
 
         i--;
-        usleep(42);
+        usleep(500);
     }
 }
 
