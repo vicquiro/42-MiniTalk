@@ -14,56 +14,78 @@
  * we wait (usleep) a few micro-seconds
  */
 
-void send_to_server(int pid_server, unsigned char element)
+void send_message_to_server(int pid_server, unsigned char element)
 {
-    int i;
+	int i;
 
-    printf("Element: %d\n", element); //TODO: Remove this
-    i = 7;
-    while (i >= 0)
-    {
-        if (((element >> i) & 1) == 1)
-        {
-            printf("Bit: %d\n", 1);
-            kill(pid_server, SIGUSR1); // Send 1
-        }
-        else
-        {
-            printf("Bit: %d\n", 0);
-            kill(pid_server, 1); // Send 0
-        }
+	printf("Element: %d\n", element); //TODO: Remove this
+	i = 7;
+	while (i >= 0)
+	{
+		if (((element >> i) & 1) == 1)
+		{
+			printf("Bit: %d\n", 1);
+			kill(pid_server, SIGUSR1); // Send 1
+		}
+		else
+		{
+			printf("Bit: %d\n", 0);
+			kill(pid_server, SIGUSR2); // Send 0
+		}
+		i--;
+		usleep(500);
+	}
+}
 
-        i--;
-        usleep(500);
-    }
+void send_length_to_server(int pid_server, unsigned int msg_length)
+{
+	int i;
+
+	i = 31;
+	while (i >= 0)
+	{
+		if (((msg_length >> i) & 1) == 1)
+		{
+			printf("Bit: %d\n", 1);
+			kill(pid_server, SIGUSR1); // Send 1
+		}
+		else
+		{
+			printf("Bit: %d\n", 0);
+			kill(pid_server, SIGUSR2); // Send 0
+		}
+		i--;
+		usleep(500);
+	}
+
 }
 
 int main(int argc, char **argv)
 {
-    pid_t pid_server;
+	pid_t pid_server;
 
-    int i;
-    const char *message;
-    if (argc != 3)
-    {
-        // TODO: Change printf to ft_printf
-        printf("Error: ./client [PID_SERVER] [MESSAGE]\n");
-        return (0);
-    }
+	int i;
+	const char *message;
+	if (argc != 3)
+	{
+		// TODO: Change printf to ft_printf
+		printf("Error: ./client [PID_SERVER] [MESSAGE]\n");
+		return (0);
+	}
 
-    pid_server = atoi(argv[1]); // Change this to ft_atoi
+	pid_server = atoi(argv[1]); // Change this to ft_atoi
 
-    printf("PID_SERVER: %d\n", pid_server);
-    message = argv[2];
-    printf("MESSAGE: %s\n", message);
+	printf("PID_SERVER: %d\n", pid_server);
+	message = argv[2];
+	printf("MESSAGE: %s\n", message);
 
-    i = 0;
-
-    while (message[i] != '\0')
-    {
-        send_to_server(pid_server, message[i]);
-        i++;
-    }
-    send_to_server(pid_server, '\0');
-    return (0);
+	i = 0;
+	send_length_to_server(pid_server, ft_strlen(message));	//Send length
+	while (message[i] != '\0')
+	{
+		send_message_to_server(pid_server, message[i]);
+		i++;
+	}
+	send_message_to_server(pid_server, '\0');
+	return (0);
 }

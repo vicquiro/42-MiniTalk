@@ -9,4 +9,12 @@
 # include <unistd.h>
 # include <string.h>
 
+typedef struct s_buffer
+{
+	int		length;
+	char	*message;
+
+}t_buffer;
+
+
 #endif
