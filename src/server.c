@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/25 14:29:12 by vquiroga          #+#    #+#             */
+/*   Updated: 2023/11/25 14:40:41 by vquiroga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minitalk.h"
 
 struct s_buffer g_buffer;
 
-
-void length_signal_handler(int signal)
+void	length_signal_handler(int signal)
 {
 	static int	length;
 	static int	index;
@@ -20,7 +31,7 @@ void length_signal_handler(int signal)
  * SINGAL_HANDLER funtion:
  *
  * */
-void message_signal_handler(int signal, int *flag)
+void	message_signal_handler(int signal, int *flag)
 {
 	static char		current_char;
 	static int		bit_index = -1;
@@ -47,9 +58,11 @@ void message_signal_handler(int signal, int *flag)
 		current_char <<= 1;
 }
 
-void signal_handler(int signal)
+void	signal_handler(int signal)
 {
-	static int flag;
+	static int	flag;
+
+	//TODO: Kill function send confirmation-signal to client 
 
 	if (flag == 32)
 	{
@@ -67,13 +80,8 @@ void signal_handler(int signal)
 		message_signal_handler(signal, &flag);
 }
 
-/**
- * Main function:
- *  Display PID in stdout
- *  Infinite Loop waiting for signals
- *     -
- */
-int main(int argc, char **argv)
+
+int	main(int argc, char **argv)
 {
 	pid_t			pid;
 
@@ -87,12 +95,10 @@ int main(int argc, char **argv)
 	ft_putstr_fd("Server PID: ", 1);
 	ft_putnbr_fd(pid, 1);
 	ft_putchar_fd('\n', 1);
-
 	g_buffer.length = 0;
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)
 		pause();
-	//free(g_buffer); //
 	return (0);
 }

@@ -2,4 +2,5 @@ notes.txt
 pruebas.c
 *.out
 *.pdf
+.vscode/
 
