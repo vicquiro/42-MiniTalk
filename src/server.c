@@ -6,7 +6,7 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:29:12 by vquiroga          #+#    #+#             */
-/*   Updated: 2023/11/25 14:40:41 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:53:45 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	main(int argc, char **argv)
 	ft_putnbr_fd(pid, 1);
 	ft_putchar_fd('\n', 1);
 	g_buffer.length = 0;
+	//TODO: Add sigaction struct here & pause statement
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)

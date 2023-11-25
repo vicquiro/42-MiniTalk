@@ -6,7 +6,7 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:29:18 by vquiroga          #+#    #+#             */
-/*   Updated: 2023/11/25 14:37:37 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:49:34 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ int	main(int argc, char **argv)
 	}
 
 	pid_server = atoi(argv[1]); // Change this to ft_atoi
+	
 	ft_putstr_fd("PID_SERVER: ", 1);//Remove this
 	ft_putstr_fd(pid_server, 1);//Remove this
-
+	
 	message = argv[2];
 	printf("MESSAGE: %s\n", message);//Remove this
 

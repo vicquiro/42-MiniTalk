@@ -6,7 +6,7 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:29:28 by vquiroga          #+#    #+#             */
-/*   Updated: 2023/11/25 14:29:52 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:54:37 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# define ROGER "\nMessage received!\n"
+/// ADD HERE OTHER GLOBAL CONST
 
 typedef struct s_buffer
 {
