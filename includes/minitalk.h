@@ -14,7 +14,7 @@ typedef struct s_buffer
 	int		length;
 	char	*message;
 
-}t_buffer;
+}	t_buffer;
 
 
 #endif

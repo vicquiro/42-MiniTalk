@@ -1,53 +1,46 @@
 #include "../includes/minitalk.h"
 
-struct s_buffer *g_buffer;
-
+struct s_buffer g_buffer;
 
 
 void length_signal_handler(int signal)
 {
-	static int	msg_length;
-	static int	bit_index;
+	static int	length;
+	static int	index;
 
-	msg_length = msg_length | (signal == SIGUSR1);
-	printf("%d\n", msg_length);
-	bit_index++;
-	if (bit_index == 32)
-		g_buffer->length = msg_length;
+	length = length | (signal == SIGUSR1);
+	index++;
+	if (index < 32)
+		length <<= 1;
 	else
-		msg_length <<= 1;
+		g_buffer.length = length;
 }
-
-
 
 /**
  * SINGAL_HANDLER funtion:
  *
  * */
-void message_signal_handler(int signal)
+void message_signal_handler(int signal, int *flag)
 {
 	static char		current_char;
-	static int		bit_index;
-	static int		msg_index;
+	static int		bit_index = -1;
+	static int		msg_index = 0;
 
 	current_char = current_char | (signal == SIGUSR1);
-	bit_index++;
-	msg_index++;
-	if (bit_index == 8)
+	if (++bit_index == 7)
 	{
-		printf("%d\n", bit_index);
 		if (current_char == '\0')
 		{
-			ft_putstr_fd(g_buffer->message, 1);
+			ft_putstr_fd(g_buffer.message, 1);
 			ft_putchar_fd('\n', 1);
-			free(g_buffer->message);
+			msg_index = 0;
+			g_buffer.length = 0;
+			*flag = 0;
+			free(g_buffer.message);
 		}
 		else
-		{
-			g_buffer->message[msg_index - 1] = current_char;
-			msg_index++;
-		}
-		bit_index = 0;
+			g_buffer.message[msg_index++] = current_char;
+		bit_index = -1;
 		current_char = 0;
 	}
 	else
@@ -58,19 +51,20 @@ void signal_handler(int signal)
 {
 	static int flag;
 
-	flag = 0;
 	if (flag == 32)
 	{
-		g_buffer->message = calloc(g_buffer->length, sizeof(char));
+		g_buffer.message = ft_calloc(g_buffer.length + 1, sizeof(char));
+		if (!g_buffer.message)
+			exit (1);
 		flag++;
 	}
-	else if (flag < 32)
+	if (flag <= 31)
 	{
 		length_signal_handler(signal);
 		flag++;
 	}
 	else
-		message_signal_handler(signal);
+		message_signal_handler(signal, &flag);
 }
 
 /**
@@ -94,7 +88,7 @@ int main(int argc, char **argv)
 	ft_putnbr_fd(pid, 1);
 	ft_putchar_fd('\n', 1);
 
-
+	g_buffer.length = 0;
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)
