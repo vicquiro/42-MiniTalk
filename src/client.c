@@ -6,7 +6,7 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:29:18 by vquiroga          #+#    #+#             */
-/*   Updated: 2023/12/03 19:40:20 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:02:20 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,9 @@ void	send_message_to_server(int pid_server, unsigned char element)
 	while (i >= 0)
 	{
 		if (((element >> i) & 1) == 1)
-		{
-			printf("Bit: %d\n", 1);
 			kill(pid_server, SIGUSR1);
-		}
 		else
-		{
-			printf("Bit: %d\n", 0);
 			kill(pid_server, SIGUSR2);
-		}
 		i--;
 		usleep(500);
 	}
@@ -42,15 +36,9 @@ void	send_length_to_server(int pid_server, unsigned int msg_length)
 	while (i >= 0)
 	{
 		if (((msg_length >> i) & 1) == 1)
-		{
-			printf("Bit: %d\n", 1);
 			kill(pid_server, SIGUSR1);
-		}
 		else
-		{
-			printf("Bit: %d\n", 0);
 			kill(pid_server, SIGUSR2);
-		}
 		i--;
 		usleep(500);
 	}
