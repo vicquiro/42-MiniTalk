@@ -6,13 +6,13 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:29:12 by vquiroga          #+#    #+#             */
-/*   Updated: 2023/11/25 15:53:45 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:33:16 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-struct s_buffer g_buffer;
+struct s_buffer	g_buffer;
 
 void	length_signal_handler(int signal)
 {
@@ -27,10 +27,6 @@ void	length_signal_handler(int signal)
 		g_buffer.length = length;
 }
 
-/**
- * SINGAL_HANDLER funtion:
- *
- * */
 void	message_signal_handler(int signal, int *flag)
 {
 	static char		current_char;
@@ -62,8 +58,6 @@ void	signal_handler(int signal)
 {
 	static int	flag;
 
-	//TODO: Kill function send confirmation-signal to client 
-
 	if (flag == 32)
 	{
 		g_buffer.message = ft_calloc(g_buffer.length + 1, sizeof(char));
@@ -80,7 +74,6 @@ void	signal_handler(int signal)
 		message_signal_handler(signal, &flag);
 }
 
-
 int	main(int argc, char **argv)
 {
 	pid_t			pid;
@@ -96,7 +89,6 @@ int	main(int argc, char **argv)
 	ft_putnbr_fd(pid, 1);
 	ft_putchar_fd('\n', 1);
 	g_buffer.length = 0;
-	//TODO: Add sigaction struct here & pause statement
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)

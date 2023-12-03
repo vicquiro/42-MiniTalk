@@ -6,21 +6,21 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 12:15:57 by vquiroga          #+#    #+#             */
-/*   Updated: 2022/10/08 12:30:21 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:32:06 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 int	get_last_pos(char const *s1, char const *set)
-{	
+{
 	int	i;
 	int	j;
 	int	k;
 
 	i = ft_strlen(s1) - 1;
 	while (i != 0)
-	{	
+	{
 		j = 0;
 		k = 0;
 		while (set[j] != 0)
@@ -38,14 +38,14 @@ int	get_last_pos(char const *s1, char const *set)
 }
 
 int	get_first_pos(char const *s1, char const *set)
-{	
+{
 	int	i;
 	int	j;
 	int	k;
 
 	i = 0;
 	while (s1[i] != 0)
-	{	
+	{
 		j = 0;
 		k = 0;
 		while (set[j] != 0)

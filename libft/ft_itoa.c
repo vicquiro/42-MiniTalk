@@ -6,7 +6,7 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 15:07:41 by vquiroga          #+#    #+#             */
-/*   Updated: 2022/10/08 12:30:27 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:31:07 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_lenght_number(int n)
 	if (n == 0)
 		return (1);
 	while (i != 0)
-	{	
+	{
 		i = i / 10;
 		j++;
 	}
@@ -60,7 +60,7 @@ char	*ft_itoa(int n)
 		return (0);
 	num[j] = 0;
 	while (j--)
-	{	
+	{
 		num[j] = (i % 10) + '0';
 		i = i / 10;
 	}
