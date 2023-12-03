@@ -6,14 +6,14 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:56:39 by vquiroga          #+#    #+#             */
-/*   Updated: 2022/09/22 13:33:28 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:31:43 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{	
+{
 	size_t	i;
 
 	i = 0;

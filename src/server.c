@@ -1,46 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/25 14:29:12 by vquiroga          #+#    #+#             */
+/*   Updated: 2023/12/03 19:40:39 by vquiroga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minitalk.h"
 
-#define END_TRANSMISSION '\0'
+struct s_buffer	g_buffer;
 
-/**
- * SINGAL_HANDLER funtion:
- *
- * */
-void signal_handler(int signal)
+void	length_signal_handler(int signal)
 {
-	static char current_char;
-	static int bit_index;
-	//printf("-\n");
+	static int	length;
+	static int	index;
+
+	length = length | (signal == SIGUSR1);
+	index++;
+	if (index < 32)
+		length <<= 1;
+	else
+		g_buffer.length = length;
+}
+
+void	message_signal_handler(int signal, int *flag)
+{
+	static char		current_char;
+	static int		bit_index = -1;
+	static int		msg_index = 0;
+
 	current_char = current_char | (signal == SIGUSR1);
-	bit_index++;
-	if (bit_index == 8)
+	if (++bit_index == 7)
 	{
-		//printf("--%c\n", current_char);
-		if (current_char == END_TRANSMISSION)
-			write(1, "\n", 1); // TODO: Change this to ft_printf
+		if (current_char == '\0')
+		{
+			ft_putstr_fd(g_buffer.message, 1);
+			ft_putchar_fd('\n', 1);
+			msg_index = 0;
+			g_buffer.length = 0;
+			*flag = 0;
+			free(g_buffer.message);
+		}
 		else
-			write(1, &current_char, 1); // TODO: Change this to ft_printf
-		bit_index = 0;
+			g_buffer.message[msg_index++] = current_char;
+		bit_index = -1;
 		current_char = 0;
 	}
 	else
 		current_char <<= 1;
-
 }
 
-/**
- * Main function:
- *  Display PID in stdout
- *  Infinite Loop waiting for signals
- *     -
- */
-int main(void)
+void	signal_handler(int signal)
 {
-	pid_t pid;
+	static int	flag;
 
+	if (flag == 32)
+	{
+		g_buffer.message = ft_calloc(g_buffer.length + 1, sizeof(char));
+		if (!g_buffer.message)
+			exit (1);
+		flag++;
+	}
+	if (flag <= 31)
+	{
+		length_signal_handler(signal);
+		flag++;
+	}
+	else
+		message_signal_handler(signal, &flag);
+}
+
+int	main(int argc, char **argv)
+{
+	pid_t			pid;
+
+	if (argc != 1)
+	{
+		ft_putstr_fd("Error: ./server \n", 1);
+		return (0);
+	}
+	(void) argv;
 	pid = getpid();
-	printf("Server PID: %d\n", pid); // Change this to ft_printf
-
+	ft_putstr_fd("Server PID: ", 1);
+	ft_putnbr_fd(pid, 1);
+	ft_putchar_fd('\n', 1);
+	g_buffer.length = 0;
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)
