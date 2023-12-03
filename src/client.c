@@ -6,7 +6,7 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:29:18 by vquiroga          #+#    #+#             */
-/*   Updated: 2023/12/03 20:02:20 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:18:06 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_putstr_fd("Error: ./client [PID_SERVER] [MESSAGE]\n", 1);
+		ft_putstr_fd(ERROR, 1);
 		return (0);
 	}
 	pid_server = ft_atoi(argv[1]);
-	ft_putstr_fd("PID_SERVER: ", 1);
-	ft_putnbr_fd(pid_server, 1);
+	ft_putstr_fd("PID_SERVER: ", 1);//?¿?¿??
+	ft_putnbr_fd(pid_server, 1);//¿?¿?
 	message = argv[2];
 	i = 0;
 	send_length_to_server(pid_server, ft_strlen(message));

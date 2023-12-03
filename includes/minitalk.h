@@ -6,7 +6,7 @@
 /*   By: vquiroga <vquiroga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 14:29:28 by vquiroga          #+#    #+#             */
-/*   Updated: 2023/11/25 15:54:37 by vquiroga         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:12:30 by vquiroga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# define ERROR "\nError: ./client [PID_SERVER] [MESSAGE]\n"
 # define ROGER "\nMessage received!\n"
 /// ADD HERE OTHER GLOBAL CONST
 
