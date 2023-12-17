@@ -1,7 +1,7 @@
 # Project Information
 
 ## Requirements
- - This project centers around constructing a data exchange system using signals within a UNIX environment.
+ - The project goal is to code a small data exchange program using UNIX signals
  - It is compulsory to generate and implements executables for both the server and client.
  - Allow the client to transmit a string, specified as a parameter, to the server identified by its process ID (PID).
  - The server should display the string when it has been completely received.
