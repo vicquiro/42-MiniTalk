@@ -5,10 +5,9 @@
  - It is compulsory to generate and implements executables for both the server and client.
  - Allow the client to transmit a string, specified as a parameter, to the server identified by its process ID (PID).
  - The server should display the string when it has been completely received.
- - Use only SIGUSR1 and SIGUSR2 signals for communication.
+ - Only SIGUSR1 and SIGUSR2 signals can be used for communication.
 
 ## Allowed Functions
-
 - [`malloc`](https://man7.org/linux/man-pages/man3/free.3.html)
 - [`free`](https://man7.org/linux/man-pages/man3/free.3.html)
 - [`write`](https://man7.org/linux/man-pages/man2/write.2.html)
