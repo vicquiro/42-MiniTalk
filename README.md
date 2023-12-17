@@ -1,13 +1,13 @@
-## Project Information
+# Project Information
 
-# Requirements
+## Requirements
  - This project centers around constructing a data exchange system using signals within a UNIX environment.
  - It is compulsory to generate and implements executables for both the server and client.
  - Allow the client to transmit a string, specified as a parameter, to the server identified by its process ID (PID).
  - The server should then display the received string.
  - Use only SIGUSR1 and SIGUSR2 signals for communication.
 
-# Allowed Functions
+## Allowed Functions
 
 - [`malloc`](https://man7.org/linux/man-pages/man3/free.3.html)
 - [`free`](https://man7.org/linux/man-pages/man3/free.3.html)
