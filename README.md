@@ -4,7 +4,7 @@
  - This project centers around constructing a data exchange system using signals within a UNIX environment.
  - It is compulsory to generate and implements executables for both the server and client.
  - Allow the client to transmit a string, specified as a parameter, to the server identified by its process ID (PID).
- - The server should then display the received string.
+ - The server should display the string when it has been completely received.
  - Use only SIGUSR1 and SIGUSR2 signals for communication.
 
 ## Allowed Functions
